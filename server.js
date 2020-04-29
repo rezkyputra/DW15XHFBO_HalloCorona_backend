@@ -6,6 +6,8 @@ const router = require("./routes");
 
 app.use(cors());
 
+app.get("/", (req, res) => res.send("Konek sukses"));
+
 app.use(express.json());
 app.use("/api/v1", router);
 
