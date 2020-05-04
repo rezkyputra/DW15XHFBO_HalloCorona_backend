@@ -1,4 +1,4 @@
-const { Consultation, User } = require("../models");
+const { Consultation, User, Reply } = require("../models");
 
 exports.create = async (req, res) => {
   try {
@@ -10,9 +10,20 @@ exports.create = async (req, res) => {
           model: User,
           attributes: ["id", "username"],
         },
+        {
+          model: Reply,
+          attributes: ["id", "response"],
+        },
       ],
       attributes: {
-        exclude: ["createdAt", "updatedAt", "UserId", "userId"],
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "UserId",
+          "userId",
+          "ReplyId",
+          "replyId",
+        ],
       },
     });
     res.send({ data: newconsul });
@@ -24,9 +35,26 @@ exports.create = async (req, res) => {
 exports.show = async (req, res) => {
   try {
     const consul = await Consultation.findOne({
-      where: { id: req.params.id },
+      where: { userId: req.params.id },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "username"],
+        },
+        {
+          model: Reply,
+          attributes: ["id", "response"],
+        },
+      ],
       attributes: {
-        exclude: ["createdAt", "updatedAt", "UserId", "userId"],
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "UserId",
+          "userId",
+          "ReplyId",
+          "replyId",
+        ],
       },
     });
     res.send({ data: consul });
@@ -38,8 +66,19 @@ exports.show = async (req, res) => {
 exports.index = async (req, res) => {
   try {
     const consul = await Consultation.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["id", "username"],
+        },
+
+        {
+          model: Reply,
+          attributes: ["id", "response"],
+        },
+      ],
       attributes: {
-        exclude: ["updatedAt", "UserId", "userId"],
+        exclude: ["updatedAt", "UserId", "userId", "ReplyId", "replyId"],
       },
     });
     res.send({ data: consul });

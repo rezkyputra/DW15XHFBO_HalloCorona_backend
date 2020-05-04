@@ -11,11 +11,11 @@ module.exports = {
       fullname: {
         type: Sequelize.STRING,
       },
-      userId: {
+      replyId: {
         allowNull: true,
         type: Sequelize.INTEGER,
         references: {
-          model: "Users",
+          model: "Replies",
           key: "id",
         },
         onUpdate: "RESTRICT",
