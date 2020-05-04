@@ -13,12 +13,16 @@ exports.login = async (req, res) => {
     if (!user) {
       res.status(401).send({ message: "Invalid login" });
     } else {
+      const role = user.roleId;
+      const id = user.id;
       bcrypt.compare(password, user.password, (err, result) => {
         if (result) {
           jwt.sign({ id: user.id }, "this-is-my-secret-key", (err, token) => {
             const data = {
               username,
               token,
+              role,
+              id,
             };
             res.status(200).send({ data });
           });
@@ -43,6 +47,7 @@ exports.register = async (req, res) => {
       },
     });
     if (!user) {
+      const role = req.body.roleId;
       bcrypt.hash(password, saltRounds, async (err, hash) => {
         const value = {
           ...req.body,
@@ -53,12 +58,13 @@ exports.register = async (req, res) => {
           const data = {
             username,
             token,
+            role,
           };
           res.status(200).send({ data });
         });
       });
     } else {
-      res.status(400).send({ message: "Email already registered" });
+      res.status(400).send({ message: "Username already registered" });
     }
   } catch (error) {
     res.status(500).send({ message: "Server Internal Error" });

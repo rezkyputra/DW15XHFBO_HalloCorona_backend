@@ -11,6 +11,16 @@ module.exports = {
       fullname: {
         type: Sequelize.STRING,
       },
+      userId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "RESTRICT",
+      },
       phone: {
         type: Sequelize.STRING,
       },

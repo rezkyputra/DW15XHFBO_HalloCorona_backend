@@ -5,7 +5,7 @@ const {
   show: showArticle,
   create: postArticle,
 } = require("../controllers/article");
-const { show: ShowUser } = require("../controllers/user");
+const { show: ShowUser, index: findUsers } = require("../controllers/user");
 const { login, register } = require("../controllers/auth");
 const { authenticated } = require("../middlewares/auth");
 const {
@@ -24,11 +24,12 @@ router.get("/article/:id", showArticle);
 router.post("/article", authenticated, postArticle);
 
 //consultation
-router.get("/consultations", findConsultations);
-router.get("/consultation/:id", showConsultation);
+router.get("/consultations", authenticated, findConsultations);
+router.get("/consultation/:id", authenticated, showConsultation);
 router.post("/consultation", authenticated, postConsultation);
 
 //user
 router.get("/user/:id", authenticated, ShowUser);
+router.get("/users", findUsers);
 
 module.exports = router;

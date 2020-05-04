@@ -39,7 +39,7 @@ exports.index = async (req, res) => {
   try {
     const consul = await Consultation.findAll({
       attributes: {
-        exclude: ["createdAt", "updatedAt", "UserId", "userId"],
+        exclude: ["updatedAt", "UserId", "userId"],
       },
     });
     res.send({ data: consul });

@@ -1,5 +1,4 @@
 const { Article, User } = require("../models");
-const { op } = require("sequelize");
 
 exports.index = async (req, res) => {
   try {
