@@ -26,7 +26,7 @@ router.get("/article/:id", showArticle);
 router.post("/article", authenticated, postArticle);
 
 //reply
-router.post("/consultaion/:id/reply", authenticated, createreply);
+router.post("/consultation/:id/reply", authenticated, createreply);
 
 //consultation
 router.get("/consultations", authenticated, findConsultations);
