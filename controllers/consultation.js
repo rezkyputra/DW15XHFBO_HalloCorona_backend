@@ -16,14 +16,7 @@ exports.create = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: [
-          "createdAt",
-          "updatedAt",
-          "UserId",
-          "userId",
-          "ReplyId",
-          "replyId",
-        ],
+        exclude: ["createdAt", "updatedAt", "UserId", "userId"],
       },
     });
     res.send({ data: newconsul });
@@ -47,14 +40,7 @@ exports.show = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: [
-          "createdAt",
-          "updatedAt",
-          "UserId",
-          "userId",
-          "ReplyId",
-          "replyId",
-        ],
+        exclude: ["createdAt", "updatedAt", "UserId", "userId"],
       },
     });
     res.send({ data: consul });
@@ -78,10 +64,36 @@ exports.index = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ["updatedAt", "UserId", "userId", "ReplyId", "replyId"],
+        exclude: ["updatedAt", "UserId", "userId"],
       },
     });
     res.send({ data: consul });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    await Consultation.update(req.body, { where: { id: req.params.id } });
+    const newconsul = await Consultation.findOne({
+      where: { id: req.params.id },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "username"],
+        },
+        {
+          model: Reply,
+          attributes: ["id", "response"],
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "UserId", "userId"],
+      },
+    });
+
+    res.send({ data: newconsul });
   } catch (error) {
     console.log(error);
   }

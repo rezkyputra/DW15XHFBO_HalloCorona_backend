@@ -27,7 +27,7 @@ exports.show = async (req, res) => {
           attributes: ["id", "name", "roleId"],
         },
       ],
-      attributes: { exclude: ["createdAt", "updatedAt", "userId", "UserId"] },
+      attributes: { exclude: ["updatedAt", "userId", "UserId"] },
     });
     res.send({ data: article });
   } catch (error) {

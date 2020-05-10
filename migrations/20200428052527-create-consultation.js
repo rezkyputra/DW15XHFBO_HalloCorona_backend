@@ -11,16 +11,6 @@ module.exports = {
       fullname: {
         type: Sequelize.STRING,
       },
-      replyId: {
-        allowNull: true,
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Replies",
-          key: "id",
-        },
-        onUpdate: "RESTRICT",
-        onDelete: "RESTRICT",
-      },
       phone: {
         type: Sequelize.STRING,
       },

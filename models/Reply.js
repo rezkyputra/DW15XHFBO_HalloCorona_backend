@@ -4,11 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     "Reply",
     {
       response: DataTypes.STRING,
+      consultationId: DataTypes.INTEGER,
     },
     {}
   );
   Reply.associate = function (models) {
-    Reply.hasOne(models.Consultation);
+    Reply.belongsTo(models.Consultation);
   };
   return Reply;
 };
