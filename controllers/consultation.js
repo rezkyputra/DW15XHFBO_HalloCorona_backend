@@ -10,10 +10,6 @@ exports.create = async (req, res) => {
           model: User,
           attributes: ["id", "username"],
         },
-        {
-          model: Reply,
-          attributes: ["id", "response"],
-        },
       ],
       attributes: {
         exclude: ["createdAt", "updatedAt", "UserId", "userId"],
@@ -34,10 +30,6 @@ exports.show = async (req, res) => {
           model: User,
           attributes: ["id", "username"],
         },
-        {
-          model: Reply,
-          attributes: ["id", "response"],
-        },
       ],
       attributes: {
         exclude: ["createdAt", "updatedAt", "UserId", "userId"],
@@ -56,11 +48,6 @@ exports.index = async (req, res) => {
         {
           model: User,
           attributes: ["id", "username"],
-        },
-
-        {
-          model: Reply,
-          attributes: ["id", "response"],
         },
       ],
       attributes: {
@@ -82,10 +69,6 @@ exports.update = async (req, res) => {
         {
           model: User,
           attributes: ["id", "username"],
-        },
-        {
-          model: Reply,
-          attributes: ["id", "response"],
         },
       ],
       attributes: {

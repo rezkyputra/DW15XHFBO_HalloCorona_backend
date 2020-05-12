@@ -14,7 +14,10 @@ const {
   index: findConsultations,
   update: updateConsultation,
 } = require("../controllers/consultation");
-const { create: createreply } = require("../controllers/reply");
+const {
+  create: createreply,
+  index: showreply,
+} = require("../controllers/reply");
 
 //auth
 router.post("/signin", login);
@@ -27,6 +30,7 @@ router.post("/article", authenticated, postArticle);
 
 //reply
 router.post("/consultation/:id/reply", authenticated, createreply);
+router.get("/reply", showreply);
 
 //consultation
 router.get("/consultations", authenticated, findConsultations);
