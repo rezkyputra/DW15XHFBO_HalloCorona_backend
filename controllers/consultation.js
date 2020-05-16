@@ -32,7 +32,7 @@ exports.show = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ["createdAt", "updatedAt", "UserId", "userId"],
+        exclude: ["updatedAt", "UserId"],
       },
     });
     res.send({ data: consul });
@@ -51,7 +51,7 @@ exports.index = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ["updatedAt", "UserId", "userId"],
+        exclude: ["updatedAt", "UserId"],
       },
     });
     res.send({ data: consul });

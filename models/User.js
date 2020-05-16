@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsTo(models.Role);
     User.hasMany(models.Article);
     User.hasOne(models.Consultation);
+    User.hasOne(models.Reply);
   };
   return User;
 };

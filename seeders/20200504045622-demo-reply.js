@@ -10,6 +10,7 @@ module.exports = {
           response:
             "Hi Harwin hari ini adalah jadwal konsultasi kamu silahkan klik link berikut untuk melakukan konsultasi secara langsung kepada saya : Dr. Anto Ariza",
           consultationId: 1,
+          userId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

@@ -4,7 +4,7 @@ exports.create = async (req, res) => {
   try {
     const reply = await Reply.create(req.body);
     const newreply = await Reply.findOne({
-      where: { id: reply.id },
+      where: { id: reply.userId },
       include: [
         {
           model: Consultation,
@@ -17,6 +17,12 @@ exports.create = async (req, res) => {
               attributes: ["id", "username"],
             },
           ],
+        },
+      ],
+      include: [
+        {
+          model: User,
+          attributes: ["id", "username"],
         },
       ],
       attributes: {
@@ -36,15 +42,14 @@ exports.index = async (req, res) => {
       include: [
         {
           model: Consultation,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "UserId", "userId"],
-          },
-          include: [
-            {
-              model: User,
-              attributes: ["id", "username"],
-            },
-          ],
+          attributes: {},
+          // include: [
+          //   {
+          //     model: User,
+          //     attributes: ["id", "username"],
+          //   },
+          // ],
+          exclude: ["createdAt", "updatedAt", "UserId", "userId"],
         },
       ],
       attributes: {
@@ -53,6 +58,51 @@ exports.index = async (req, res) => {
     });
     res.send({ data: reply });
   } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.show = async (req, res) => {
+  try {
+    const reply = await Reply.findOne({
+      where: { userId: req.params.id },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "username"],
+        },
+        {
+          model: Consultation,
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+        },
+      ],
+      attributes: {
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "UserId",
+          "userId",
+          "consultationId",
+          "ConsultationId",
+        ],
+      },
+    });
+    res.send({ data: reply });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.showReply = async (req, res) => {
+  try {
+    const replies = await reply.findAll({
+      where: { consultationId: req.params.id },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [["id", "ASC"]],
+    });
+    res.status(200).send({ data: replies });
+  } catch (error) {
+    res.status(500).send({ message: "Failed to view user reply!" });
     console.log(error);
   }
 };

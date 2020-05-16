@@ -47,7 +47,6 @@ exports.register = async (req, res) => {
       },
     });
     if (!user) {
-      const role = req.body.roleId;
       bcrypt.hash(password, saltRounds, async (err, hash) => {
         const value = {
           ...req.body,
@@ -55,10 +54,13 @@ exports.register = async (req, res) => {
         };
         const newUser = await User.create(value);
         jwt.sign({ id: newUser.id }, "this-is-my-secret-key", (err, token) => {
+          const id = newUser.id;
+          const role = newUser.roleId;
           const data = {
             username,
             token,
             role,
+            id,
           };
           res.status(200).send({ data });
         });

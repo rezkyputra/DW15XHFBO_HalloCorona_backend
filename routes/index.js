@@ -17,6 +17,7 @@ const {
 const {
   create: createreply,
   index: showreply,
+  show: showreplybyid,
 } = require("../controllers/reply");
 
 //auth
@@ -31,6 +32,7 @@ router.post("/article", authenticated, postArticle);
 //reply
 router.post("/consultation/:id/reply", authenticated, createreply);
 router.get("/reply", showreply);
+router.get("/reply/:id", showreplybyid);
 
 //consultation
 router.get("/consultations", authenticated, findConsultations);
@@ -38,7 +40,7 @@ router.get("/consultation/:id", authenticated, showConsultation);
 router.patch("/consultation/:id", authenticated, updateConsultation);
 router.post("/consultation", authenticated, postConsultation);
 
-//user
+//profile
 router.get("/user/:id", authenticated, ShowUser);
 router.get("/users", findUsers);
 
