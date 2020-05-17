@@ -42,18 +42,23 @@ exports.index = async (req, res) => {
       include: [
         {
           model: Consultation,
-          attributes: {},
-          // include: [
-          //   {
-          //     model: User,
-          //     attributes: ["id", "username"],
-          //   },
-          // ],
-          exclude: ["createdAt", "updatedAt", "UserId", "userId"],
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "UserId", "userId"],
+          },
+        },
+        {
+          model: User,
+          attributes: ["id", "name"],
         },
       ],
       attributes: {
-        exclude: ["createdAt", "updatedAt", "ConsultationId", "consultationId"],
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "ConsultationId",
+          "consultationId",
+          "UserId",
+        ],
       },
     });
     res.send({ data: reply });
@@ -69,11 +74,13 @@ exports.show = async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username"],
+          attributes: ["id", "name"],
         },
         {
           model: Consultation,
-          attributes: { exclude: ["createdAt", "updatedAt"] },
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "UserId", "userId"],
+          },
         },
       ],
       attributes: {
@@ -89,20 +96,6 @@ exports.show = async (req, res) => {
     });
     res.send({ data: reply });
   } catch (error) {
-    console.log(error);
-  }
-};
-
-exports.showReply = async (req, res) => {
-  try {
-    const replies = await reply.findAll({
-      where: { consultationId: req.params.id },
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-      order: [["id", "ASC"]],
-    });
-    res.status(200).send({ data: replies });
-  } catch (error) {
-    res.status(500).send({ message: "Failed to view user reply!" });
     console.log(error);
   }
 };

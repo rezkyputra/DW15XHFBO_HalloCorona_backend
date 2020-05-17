@@ -22,6 +22,10 @@ module.exports = {
         onDelete: "RESTRICT",
       },
       userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      userIdDoc: {
         allowNull: true,
         type: Sequelize.INTEGER,
         references: {
