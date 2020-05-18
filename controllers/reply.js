@@ -11,22 +11,17 @@ exports.create = async (req, res) => {
           attributes: {
             exclude: ["createdAt", "updatedAt", "UserId", "userId"],
           },
-          include: [
-            {
-              model: User,
-              attributes: ["id", "username"],
-            },
-          ],
-        },
-      ],
-      include: [
-        {
-          model: User,
-          attributes: ["id", "username"],
         },
       ],
       attributes: {
-        exclude: ["createdAt", "updatedAt", "ConsultationId", "consultationId"],
+        exclude: [
+          "createdAt",
+          "updatedAt",
+          "ConsultationId",
+          "consultationId",
+          "userIdDoc",
+          "UserId",
+        ],
       },
     });
     res.status(201).send({ data: newreply });
@@ -46,10 +41,6 @@ exports.index = async (req, res) => {
             exclude: ["createdAt", "updatedAt", "UserId", "userId"],
           },
         },
-        {
-          model: User,
-          attributes: ["id", "name"],
-        },
       ],
       attributes: {
         exclude: [
@@ -57,7 +48,8 @@ exports.index = async (req, res) => {
           "updatedAt",
           "ConsultationId",
           "consultationId",
-          "UserId",
+          // "userIdDoc",
+          // "UserIdDoc",
         ],
       },
     });
@@ -73,22 +65,27 @@ exports.show = async (req, res) => {
       where: { userId: req.params.id },
       include: [
         {
-          model: User,
-          attributes: ["id", "name"],
-        },
-        {
           model: Consultation,
           attributes: {
-            exclude: ["createdAt", "updatedAt", "UserId", "userId"],
+            exclude: ["createdAt", "updatedAt", "userId", "userId"],
           },
+          include: {
+            model: User,
+            attributes: ["id", "name"],
+          },
+        },
+        {
+          model: User,
+          attributes: ["id", "name"],
         },
       ],
       attributes: {
         exclude: [
           "createdAt",
           "updatedAt",
-          "UserId",
-          "userId",
+          // "userId",
+          // "userIdDoc",
+          // "UserIdDoc",
           "consultationId",
           "ConsultationId",
         ],
